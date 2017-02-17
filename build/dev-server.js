@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const MFS = require('memory-fs')
+const proxyMiddleware = require('http-proxy-middleware')
 const clientConfig = require('./webpack.client.config')
 const serverConfig = require('./webpack.server.config')
 
@@ -33,5 +34,21 @@ module.exports = function setupDevServer (app, onUpdate) {
     stats.errors.forEach(err => console.error(err))
     stats.warnings.forEach(err => console.warn(err))
     onUpdate(mfs.readFileSync(outputPath, 'utf-8'))
+  })
+
+  //proxy
+  // proxy api requests
+  const proxyTable = {
+    '/api': {
+      target: 'http://localhost:6001',
+      changeOrigin: true,
+    },
+  };
+  Object.keys(proxyTable).forEach(function (context) {
+    var options = proxyTable[context]
+    if (typeof options === 'string') {
+      options = { target: options }
+    }
+    app.use(proxyMiddleware(context, options))
   })
 }

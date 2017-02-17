@@ -1,31 +1,30 @@
 <template>
   <div>
-    <button @click='increment'>Increment +1</button>
-    <button @click='decrement'>Decrement -1</button>
+    <button @click='INCREMENT'>Increment +1</button>
+    <button @click='DECREMENT'>Decrement -1</button>
     <h3>Count is {{ count }}</h3>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex';
+import { INCREMENT, DECREMENT } from '../vuex/modules/counter/type';
 
 export default {
   methods: {
-    ...mapActions([
-      'increment',
-      'decrement'
-    ])
+    ...mapActions('counter/', [
+      INCREMENT,
+      DECREMENT,
+    ]),
   },
   computed: {
-    ...mapGetters({
-      count: 'getCount'
-    })
-  }
-}
+    ...mapGetters('counter/', {
+      count: 'count',
+    }),
+  },
+};
 </script>
 
 <style>
-  body {
-    background: gray;
-  }
+  
 </style>

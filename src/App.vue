@@ -1,14 +1,18 @@
-<template>
-  <div id="app">
-     <img src="./assets/logo.png">
-     <ul>
-       <li><router-link to="/" exact>Home</router-link></li>
-       <li><router-link to="/topics">Topics</router-link></li>
-       <li><router-link to="/counter">Counter</router-link></li>
-       <li><router-link to="/about">About</router-link></li>
-     </ul>
-     <router-view class="view"></router-view>
-  </div>
+<template lang='jade'>
+  #app
+    img(src='./assets/logo.png')
+    ul
+      li
+        router-link(to="/" exact) Home
+      li
+        router-link(to="/topics") Topics
+      li
+        router-link(to="/counter") Counter
+      li
+        router-link(to="/about") About
+      li
+        router-link(to="/login") Login
+    router-view.view
 </template>
 
 <style>
